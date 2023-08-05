@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
     GameObject equipWeapon;
 
+    // 체력
+    [SerializeField] int hp;
+
     // 스피드 조정 변수
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
@@ -19,9 +22,8 @@ public class PlayerController : MonoBehaviour
 
     // 상태 변수
     bool isGround = true;
-
-    // 땅 착지 여부
-    CapsuleCollider capsuleCollider;
+    bool isDamage = false;
+    bool isDead = false;
 
     // 카메라 민감도
     [SerializeField] float lookSensitivity;
@@ -31,14 +33,12 @@ public class PlayerController : MonoBehaviour
     float currentCameraRotation_X = 0f;
 
     [SerializeField] Camera theCamera;
-
-    Rigidbody myRigid;
+    [SerializeField] Rigidbody myRigid;
+    [SerializeField] CapsuleCollider capsuleCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        myRigid = GetComponent<Rigidbody>();
         applySpeed = walkSpeed;
     }
 
@@ -149,10 +149,9 @@ public class PlayerController : MonoBehaviour
         myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
     }
 
-    // 자원 습득
     void OnTriggerEnter(Collider other)
-    {
-            if (other.tag == "Resource")
+    {   // 자원 습득
+        if (other.CompareTag("Resource"))
         {
             Resource resource = other.GetComponent<Resource>();
             switch (resource.type)
@@ -162,7 +161,6 @@ public class PlayerController : MonoBehaviour
                     equipWeapon = weapons[0];
                     equipWeapon.SetActive(true);
                     break;
-
                 case Resource.Type.StoneSculpture:
                     resource.stoneSculpture += resource.value;
                     break;
@@ -179,7 +177,35 @@ public class PlayerController : MonoBehaviour
                     resource.key += resource.value;
                     break;
             }
-           Destroy(other.gameObject);
+            Destroy(other.gameObject);
         }
+    }
+
+    public void Damage(int _dmg, Vector3 _targetPos)
+    {
+        if (isDead == false && isDamage == false)
+        {
+            hp -= _dmg;
+            StartCoroutine(OnDamage());
+
+            if (hp <= 0)
+            {
+                Dead();
+                return;
+            }
+        }
+    }
+
+    IEnumerator OnDamage()
+    {
+        isDamage = true;
+        yield return new WaitForSeconds(1); // 무적 타임
+        isDamage = false;
+    }
+
+    void Dead()
+    {
+        isDead = true;
+        Debug.Log("게임 오버");
     }
 }

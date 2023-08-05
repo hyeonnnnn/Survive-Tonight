@@ -7,6 +7,7 @@ TagManager:
   - Weapon
   - Resource
   - Enemy
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
@@ -16,13 +17,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - Weapon
   - 
   - 
   - 
-  - 
-  - 
+  - Enemy
+  - EnemyAttack
   - 
   - 
   - 

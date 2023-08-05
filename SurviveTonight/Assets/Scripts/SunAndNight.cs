@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class SunAndNight : MonoBehaviour
 {
-    [SerializeField] float secondPerRealTimeSecond; // 게임 세계의 n초 = 현실 세계의 1초 
-    
     //bool isNight = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.right, 0.1f * secondPerRealTimeSecond * Time.deltaTime); // 태양 회전
+        StartCoroutine(StartDay());
+    }
 
-        //if (transform.eulerAngles.x >= 170)
-            //isNight = true;
-        //else if (transform.eulerAngles.x <= 10)
-            //isNight = false;
+    IEnumerator StartDay()
+    {
+        float startTime = Time.time; // 태양 회전 시작 시간
 
+        while (Time.time - startTime < 600f) // 600초 동안만 회전
+        {
+            float t = (Time.time - startTime) / 600f; // 경과 시간에 대한 정규화 값 (0~1 사이)
+
+            // 0도에서 180도로 회전하는 보간 각도를 계산
+            float rotationAngle = Mathf.Lerp(0f, 180f, t);
+
+            // 태양 회전
+            transform.rotation = Quaternion.Euler(rotationAngle, 0f, 0f);
+
+            yield return null;
+        }
+
+        // 600초가 지나면 태양 회전을 멈춤
     }
 }
