@@ -4907,6 +4907,7 @@ GameObject:
   - component: {fileID: 8507453332020667271}
   - component: {fileID: 8507453332020667278}
   - component: {fileID: 8507453332020667264}
+  - component: {fileID: 8114919459608982882}
   m_Layer: 0
   m_Name: Resource_Bullet
   m_TagString: Resource
@@ -4973,3 +4974,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 7
   m_Center: {x: 0, y: -6, z: 0}
+--- !u!114 &8114919459608982882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508945000660357670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c6cce8c39612840972fe0f469ba771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  value: 1
+  initHammer: 0
+  stoneSculpture: 0
+  bone: 0
+  bullet: 0
+  torax: 0
+  key: 0
