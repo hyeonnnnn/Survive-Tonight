@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SunAndNight : MonoBehaviour
 {
-    //bool isNight = false;
+    int DayTime = 30;
+    bool isNight;
 
-    // Update is called once per frame
     void Update()
     {
         StartCoroutine(StartDay());
@@ -14,21 +14,31 @@ public class SunAndNight : MonoBehaviour
 
     IEnumerator StartDay()
     {
-        float startTime = Time.time; // 태양 회전 시작 시간
+        isNight = false;
 
-        while (Time.time - startTime < 600f) // 600초 동안만 회전
+        float startTime = Time.time;
+
+        while (Time.time - startTime < DayTime)
         {
-            float t = (Time.time - startTime) / 600f; // 경과 시간에 대한 정규화 값 (0~1 사이)
-
-            // 0도에서 180도로 회전하는 보간 각도를 계산
-            float rotationAngle = Mathf.Lerp(0f, 180f, t);
-
-            // 태양 회전
+            float t = (Time.time - startTime) / DayTime;
+            float rotationAngle = Mathf.Lerp(5f, 175f, t);
             transform.rotation = Quaternion.Euler(rotationAngle, 0f, 0f);
 
             yield return null;
         }
+        StartCoroutine("StartNight");
+    }
 
-        // 600초가 지나면 태양 회전을 멈춤
+    IEnumerator StartNight()
+    {
+        isNight = true;
+
+        while (isNight)
+        {
+            transform.rotation = Quaternion.Euler(180f, 0f, 0f);
+        }
+
+        StartCoroutine("StartDay");
+        yield return null;
     }
 }
