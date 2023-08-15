@@ -60,7 +60,6 @@ public class GunController : MonoBehaviour
         {
             if (hitInfo.transform.tag == "Enemy")
             {
-                Debug.Log("총으로 적 타격");
                 hitInfo.transform.GetComponent<EnemyController>().Damage(2, transform.position);
             }
         }

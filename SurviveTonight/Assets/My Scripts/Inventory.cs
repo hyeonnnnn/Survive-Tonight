@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        go_InventoryBase.SetActive(inventoryActivated);
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
 
@@ -62,8 +63,6 @@ public class Inventory : MonoBehaviour
                 {
                     if (slots[i].item.itemName == _item.itemName)
                     {
-                        Debug.Log("아이템이 이미 있음");
-
                         slots[i].SetSlotCount(_count);
                         return;
                     }
@@ -75,8 +74,6 @@ public class Inventory : MonoBehaviour
         {
             if (slots[i].item == null)
             {
-                Debug.Log("아이템이 없음");
-
                 slots[i].AddItem(_item, _count);
                 return;
             }

@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CapsuleCollider capsuleCollider;
 
     [SerializeField] Inventory theInventory;
+    [SerializeField] ShopUI theShopUI;
     [SerializeField] WeaponManager theWeaponManager;
 
     // Start is called before the first frame update
