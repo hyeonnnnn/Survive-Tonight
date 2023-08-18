@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    [SerializeField] private Gun currentGun;
+    public Gun currentGun;
+    [SerializeField] public WeaponManager theWeaponManager;
     private float currentFireRate;
 
     private Vector3 originPos;

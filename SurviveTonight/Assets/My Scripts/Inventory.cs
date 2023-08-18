@@ -8,19 +8,21 @@ public class Inventory : MonoBehaviour
     public static bool inventoryActivated = false;
 
     // 필요한 컴포넌트
-    [SerializeField]
-    private GameObject go_InventoryBase;
-    [SerializeField]
-    private GameObject go_SlotsParent;
+    [SerializeField] private GameObject go_InventoryBase;
+    [SerializeField] private GameObject go_SlotsParent;
 
     // 슬롯
-    private Slot[] slots;
+    private InventorySlot[] slots;
+    public Item item; // 획득한 아이템
+
+    public int stoneCount = 0;
+    public int boneCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         go_InventoryBase.SetActive(inventoryActivated);
-        slots = go_SlotsParent.GetComponentsInChildren<Slot>();
+        slots = go_SlotsParent.GetComponentsInChildren<InventorySlot>();
     }
 
     // Update is called once per frame
@@ -79,4 +81,6 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+
 }

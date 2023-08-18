@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BossEnemy : EnemyController
 {
@@ -13,7 +15,7 @@ public class BossEnemy : EnemyController
     [SerializeField] protected GameObject[] bossItem_prefab;
     [SerializeField] protected GameObject key_prefab;
 
-    EnemyController enemy;
+    public TextMeshProUGUI bossHp;
 
     Vector3 lookVec;
     bool isLook;
@@ -74,6 +76,8 @@ public class BossEnemy : EnemyController
     {
         DropItem();
         base.Dead();
+
+        SceneManager.LoadScene("ThankYouForPlaying");
     }
 
     new void DropItem()
@@ -84,6 +88,10 @@ public class BossEnemy : EnemyController
         {
             Instantiate(itemPrefab, ItemSpawnPosition, Quaternion.identity);
         }
+    }
 
+    public void ShowBossInfo()
+    {
+        bossHp.text = "Boss HP : " + currentHp.ToString() + "/" + maxHp.ToString();
     }
 }

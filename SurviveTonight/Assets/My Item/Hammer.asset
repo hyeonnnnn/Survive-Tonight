@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: 
   itemName: Hammer
-  itemDesc: 
+  itemDesc: "\uCD08\uBCF4\uC790\uB97C \uC704\uD55C \uB9DD\uCE58"
   itemType: 0
   itemImage: {fileID: 21300000, guid: 1c436558df0caa04eb65bf6f8d065918, type: 3}
   itemPrefab: {fileID: 1348174882345252545, guid: c2ec4bfd1a6491c49a0c34b8dc3a7639, type: 3}
+  ResourceCnt: 0

@@ -8,5 +8,4 @@ public class Gun : MonoBehaviour
     public float fireRate; // 연사 속도
     public int damage; // 데미지
     public ParticleSystem muzzleFlash;
-
 }

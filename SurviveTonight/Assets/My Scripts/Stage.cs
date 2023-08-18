@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Stage : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Stage : MonoBehaviour
     [SerializeField] Timer timer;
     [SerializeField] DayAndNight dayAndNight;
     [SerializeField] TextMeshProUGUI stageText;
+    [SerializeField] BossEnemy theBossEnemy;
+    [SerializeField] GameObject go_Boss;
     private bool isStageIncreased = false;
 
     void Start()
@@ -27,7 +30,15 @@ public class Stage : MonoBehaviour
             // 아침이면
             if (!dayAndNight.isNight && !isStageIncreased)
             {
-                timer.timerText.gameObject.SetActive(true); // 타이머 시작
+                timer.RestartTimer();
+
+                if (currentStage == totalStage)
+                {
+                    go_Boss.SetActive(true);
+                    theBossEnemy.ShowBossInfo();
+                }
+
+                // timer.timerText.gameObject.SetActive(true); // 타이머 시작
                 stageText.text = currentStage + " Stage";
                 currentStage++;
                 isStageIncreased = true;
@@ -36,13 +47,14 @@ public class Stage : MonoBehaviour
             // 밤이면
             else if (dayAndNight.isNight)
             {
+                timer.RestartTimer();
                 isStageIncreased = false;
             }
 
             // 스테이지가 끝나면
             if (currentStage > totalStage)
             {
-                Debug.Log("게임 승리");
+                SceneManager.LoadScene("GameOver");
                 yield break; // 코루틴 종료
             }
 

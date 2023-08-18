@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     public bool[] hasWeapons;
 
     public GameObject equipWeapon;
+    [SerializeField] GunController theGunController;
 
     public Image[] weaponBg;
 
@@ -27,7 +28,7 @@ public class WeaponManager : MonoBehaviour
     void Swap()
     {
         // 무기가 없으면 교체X
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < weapons.Length; i++)
         {
             if ((Input.GetKeyDown(KeyCode.Alpha1 + i)) && !hasWeapons[i])
                 return;
@@ -36,7 +37,7 @@ public class WeaponManager : MonoBehaviour
         int weaponIndex = -1;
 
         // 번호키에 따른 인덱스 변경
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < weapons.Length; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
@@ -63,7 +64,6 @@ public class WeaponManager : MonoBehaviour
         HammerController.isActivate = true;
         hasWeapons[0] = true;
         equipWeapon = weapons[0];
-        equipWeapon.SetActive(true);
         weaponBg[0].GetComponent<Image>().color = Color.white;
     }
 }

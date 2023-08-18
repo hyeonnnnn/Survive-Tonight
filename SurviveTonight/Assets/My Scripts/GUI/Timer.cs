@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
 
     void OnEnable()
     {
-        currentTime = theDayAndNight.dayTime;
+        currentTime = theDayAndNight.time;
     }
 
     // Update is called once per frame
@@ -53,5 +53,10 @@ public class Timer : MonoBehaviour
     {
         if (theStage.currentStage > theStage.wholeStage)
             return;
+    }
+
+    public void RestartTimer()
+    {
+        enabled = true;
     }
 }

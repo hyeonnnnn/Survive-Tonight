@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CapsuleCollider capsuleCollider;
 
     [SerializeField] Inventory theInventory;
-    [SerializeField] ShopUI theShopUI;
+    [SerializeField] Shop theShop;
     [SerializeField] WeaponManager theWeaponManager;
 
     // Start is called before the first frame update
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         // 인벤토리가 활성화되면 카메라, 캐릭터를 가만히
-        if (Inventory.inventoryActivated == false)
+        if (Inventory.inventoryActivated == false && Shop.shopActivated == false)
         {
             CameraRotation();
             CharacterRotation();
@@ -150,7 +151,7 @@ public class PlayerController : MonoBehaviour
     void Dead()
     {
         isDead = true;
-        Debug.Log("게임 오버");
+        SceneManager.LoadScene("GameOver");
     }
 
     // 필드아이템 접촉

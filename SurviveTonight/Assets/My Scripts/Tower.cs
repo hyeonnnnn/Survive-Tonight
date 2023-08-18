@@ -7,7 +7,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField] public int dmg; // 타워의 공격력
     [SerializeField] public float shootDelay; // 발사 딜레이
-    [SerializeField] protected SphereCollider atkRange; // 공격 범위
+    [SerializeField] public SphereCollider atkRange; // 공격 범위
     [SerializeField] ParticleSystem shotFlash;
 
     void OnTriggerEnter(Collider other)
@@ -17,7 +17,6 @@ public class Tower : MonoBehaviour
             if (!isShoot)
             {
                 StartCoroutine(Shoot(other.gameObject)); // 발사 코루틴 실행
-
             }
         }
     }

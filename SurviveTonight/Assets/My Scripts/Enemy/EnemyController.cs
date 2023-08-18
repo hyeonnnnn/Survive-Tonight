@@ -11,8 +11,6 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] protected int maxHp;
     protected int currentHp;
-    // [SerializeField] protected TextMeshProUGUI hp_Text;
-    // [SerializeField] protected GameObject hp_Holder;
 
     [SerializeField] protected GameObject bonePrefab;
     [SerializeField] protected Item theItem; // 드롭 아이템
@@ -41,51 +39,9 @@ public class EnemyController : MonoBehaviour
 
         anim.SetBool("doDie", false);
 
-        // 멀어지면 아이콘도 작게하는 코드 추가하기
-        /*
-         void ChaseMonster()
-    {
-        for (int i = 0; i < objectList.Count; i++)
-        {
-            if (objectList[i] != null)
-            {
-                Vector3 locationPos = objectList[i].position + new Vector3(0, 3.2f, 0);
-                Vector3 screenPos = cam.WorldToScreenPoint(locationPos);
-
-                if (screenPos.z < 0)
-                {
-                    screenPos *= -1f;
-                    screenPos.z = 0;
-                }
-
-                locationList[i].transform.position = screenPos;
-
-                float maxIconSize = 4.0f; // 아이콘의 최대 크기
-
-                // 카메라와 아이콘의 Z축 거리 차이
-                float zDistance = Mathf.Abs(cam.transform.position.z - objectList[i].position.z);
-
-                // 거리 차이가 작아질수록 아이콘의 크기 커짐
-                float iconSize = Mathf.Lerp(1.0f / maxIconSize, 2.0f, maxIconSize / zDistance);
-                locationList[i].transform.localScale = new Vector3(iconSize, iconSize, 1f);
-            }
-
-            else
-            {
-                Destroy(locationList[i]);
-                locationList.RemoveAt(i);
-                objectList.RemoveAt(i);
-                i--;
-            }
-        }
-    }
-         */
         currentHp = maxHp;
 
-        // hp_Text.text = maxHp.ToString();
-        // hp_Holder.SetActive(true);
-
-        if (enemyName != "Middle Boss" || enemyName != "Final Boss")
+        if (enemyName != "Final Boss")
             Invoke("ChaseStart", 2);
     }
 
@@ -93,20 +49,17 @@ public class EnemyController : MonoBehaviour
     {
         isChase = true;
 
-        if (enemyName != "Middle Boss" || enemyName != "Final Boss")
+        if (enemyName != "Final Boss")
             anim.SetBool("isWalk", true);
     }
 
     void Update()
     {
-        if (nav.enabled && (enemyName != "Middle Boss" || enemyName != "Final Boss"))
+        if (nav.enabled && (enemyName != "Final Boss"))
         {
             nav.SetDestination(target.position);
             nav.isStopped = !isChase;
         }
-
-        // Vector3 hp_text_Pos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 3.2f, 0));
-        // hp_Holder.transform.position = hp_text_Pos;
     }
 
     protected void FixedUpdate()
@@ -118,7 +71,7 @@ public class EnemyController : MonoBehaviour
     // 플레이어 따라가기
     protected void Targeting()
     {
-        if (!isDead && (enemyName != "Middle Boss" || enemyName != "Final Boss"))
+        if (!isDead && (enemyName != "Final Boss"))
         {
             float targetRedius = 1.5f;
             float targetRange = 3f;
@@ -166,7 +119,6 @@ public class EnemyController : MonoBehaviour
         if (isDead == false)
         {
             currentHp -= _dmg;
-            // hp_Text.text = currentHp.ToString();
 
             if (currentHp <= 0)
             {
@@ -179,7 +131,6 @@ public class EnemyController : MonoBehaviour
     // 죽기
     public virtual void Dead()
     {
-        Debug.Log("죽음");
         isDead = true;
         nav.enabled = false;
         isChase = false;
@@ -188,7 +139,6 @@ public class EnemyController : MonoBehaviour
         DropItem();
 
         gameObject.SetActive(false);
-        // hp_Holder.SetActive(false);
         Spawner.instance.InsertQueue(gameObject);
     }
 
